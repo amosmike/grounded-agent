@@ -1,0 +1,47 @@
+[
+  {
+    "id": "T-1001",
+    "world": "t-1001.json",
+    "ticket": {
+      "id": "T-1001",
+      "raised_at": "2026-03-04T08:30:00Z",
+      "subject": "Paid but premium stopped working",
+      "body": "Hi, I'm alice@example.com. My renewal went through yesterday, the money has left my bank, but the app now says my subscription is past due and premium features are locked. Can you sort this out?"
+    },
+    "expected": {
+      "cause": "The renewal payment succeeded, but its payment.succeeded webhook failed signature verification and was dropped, so the subscription never heard about the payment and was marked past_due.",
+      "escalate": true,
+      "change": { "collection": "subscriptions", "record_id": "sub_1001", "field": "status", "new_value": "active" }
+    }
+  },
+  {
+    "id": "T-1002",
+    "world": "t-1002.json",
+    "ticket": {
+      "id": "T-1002",
+      "raised_at": "2026-03-10T16:05:00Z",
+      "subject": "Charged twice this month",
+      "body": "I've been charged £9.99 twice today for my premium plan. Email is bob@example.com. Please refund the extra one."
+    },
+    "expected": {
+      "cause": "The first charge timed out at the gateway, billing retried without an idempotency key, and both the original attempt and the retry succeeded, so the customer was charged twice.",
+      "escalate": true,
+      "change": { "collection": "payments", "record_id": "pay_6002", "field": "refund_status", "new_value": "requested" }
+    }
+  },
+  {
+    "id": "T-1003",
+    "world": "t-1003.json",
+    "ticket": {
+      "id": "T-1003",
+      "raised_at": "2026-03-05T10:20:00Z",
+      "subject": "Account locked - have I been hacked?",
+      "body": "I'm carol@example.com and I can't log in, it says my account is locked. Has someone been trying to get into my account?"
+    },
+    "expected": {
+      "cause": "Five wrong-password attempts from the customer's own known device locked the account for 30 minutes. It unlocks by itself, and there is no sign of anyone else trying to log in.",
+      "escalate": false,
+      "change": null
+    }
+  }
+]

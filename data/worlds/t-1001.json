@@ -1,0 +1,24 @@
+{
+  "name": "t-1001",
+  "taken_at": "2026-03-04T08:30:00Z",
+  "collections": {
+    "customers": [
+      { "id": "cus_1001", "email": "alice@example.com", "name": "Alice Example", "created_at": "2025-03-03T09:10:00Z" },
+      { "id": "cus_1002", "email": "dan@example.com", "name": "Dan Example", "created_at": "2025-06-12T14:02:00Z" }
+    ],
+    "subscriptions": [
+      { "id": "sub_1001", "customer_id": "cus_1001", "plan": "premium", "status": "past_due", "renews_at": "2026-03-03T00:00:00Z" },
+      { "id": "sub_1002", "customer_id": "cus_1002", "plan": "basic", "status": "active", "renews_at": "2026-03-12T00:00:00Z" }
+    ],
+    "payments": [
+      { "id": "pay_5001", "customer_id": "cus_1001", "subscription_id": "sub_1001", "amount_pence": 999, "status": "succeeded", "created_at": "2026-03-03T09:14:02Z", "refund_status": "none" },
+      { "id": "pay_4410", "customer_id": "cus_1001", "subscription_id": "sub_1001", "amount_pence": 999, "status": "succeeded", "created_at": "2026-02-03T09:12:40Z", "refund_status": "none" }
+    ]
+  },
+  "logs": [
+    { "ts": "2026-03-03T09:14:02Z", "level": "info", "service": "billing", "message": "payment pay_5001 succeeded for sub_1001 (999 pence)" },
+    { "ts": "2026-03-03T09:14:03Z", "level": "error", "service": "webhooks", "message": "signature verification failed for event evt_88123 (payment.succeeded, pay_5001): event dropped" },
+    { "ts": "2026-03-03T09:20:11Z", "level": "info", "service": "billing", "message": "payment pay_5002 succeeded for sub_1002 (499 pence)" },
+    { "ts": "2026-03-04T00:00:05Z", "level": "warn", "service": "subscriptions", "message": "sub_1001 marked past_due: no payment.succeeded event received by renewal deadline" }
+  ]
+}

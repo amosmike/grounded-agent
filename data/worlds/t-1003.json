@@ -1,0 +1,21 @@
+{
+  "name": "t-1003",
+  "taken_at": "2026-03-05T10:20:00Z",
+  "collections": {
+    "customers": [
+      { "id": "cus_3001", "email": "carol@example.com", "name": "Carol Example", "failed_logins": 5, "locked_until": "2026-03-05T10:42:00Z", "known_devices": ["dev_77"] }
+    ],
+    "subscriptions": [
+      { "id": "sub_3001", "customer_id": "cus_3001", "plan": "basic", "status": "active", "renews_at": "2026-03-21T00:00:00Z" }
+    ],
+    "payments": []
+  },
+  "logs": [
+    { "ts": "2026-03-05T10:10:02Z", "level": "warn", "service": "auth", "message": "failed login for cus_3001 from known device dev_77: wrong password" },
+    { "ts": "2026-03-05T10:10:40Z", "level": "warn", "service": "auth", "message": "failed login for cus_3001 from known device dev_77: wrong password" },
+    { "ts": "2026-03-05T10:11:15Z", "level": "warn", "service": "auth", "message": "failed login for cus_3001 from known device dev_77: wrong password" },
+    { "ts": "2026-03-05T10:11:51Z", "level": "warn", "service": "auth", "message": "failed login for cus_3001 from known device dev_77: wrong password" },
+    { "ts": "2026-03-05T10:12:00Z", "level": "warn", "service": "auth", "message": "failed login for cus_3001 from known device dev_77: wrong password" },
+    { "ts": "2026-03-05T10:12:00Z", "level": "warn", "service": "auth", "message": "cus_3001 locked for 30 minutes after 5 failed attempts" }
+  ]
+}

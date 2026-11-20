@@ -1,0 +1,24 @@
+{
+  "name": "t-1002",
+  "taken_at": "2026-03-10T16:05:00Z",
+  "collections": {
+    "customers": [
+      { "id": "cus_2001", "email": "bob@example.com", "name": "Bob Example", "created_at": "2024-11-10T10:00:00Z" }
+    ],
+    "subscriptions": [
+      { "id": "sub_2001", "customer_id": "cus_2001", "plan": "premium", "status": "active", "renews_at": "2026-04-10T00:00:00Z" }
+    ],
+    "payments": [
+      { "id": "pay_6001", "customer_id": "cus_2001", "subscription_id": "sub_2001", "amount_pence": 999, "status": "succeeded", "created_at": "2026-03-10T10:00:00Z", "idempotency_key": "renew-sub_2001-2026-03", "refund_status": "none" },
+      { "id": "pay_6002", "customer_id": "cus_2001", "subscription_id": "sub_2001", "amount_pence": 999, "status": "succeeded", "created_at": "2026-03-10T10:00:31Z", "idempotency_key": null, "refund_status": "none" },
+      { "id": "pay_5710", "customer_id": "cus_2001", "subscription_id": "sub_2001", "amount_pence": 999, "status": "succeeded", "created_at": "2026-02-10T10:00:02Z", "idempotency_key": "renew-sub_2001-2026-02", "refund_status": "none" }
+    ]
+  },
+  "logs": [
+    { "ts": "2026-03-10T10:00:00Z", "level": "info", "service": "billing", "message": "charging sub_2001 (attempt 1, idempotency key renew-sub_2001-2026-03)" },
+    { "ts": "2026-03-10T10:00:30Z", "level": "error", "service": "billing", "message": "gateway timeout after 30s charging sub_2001 (attempt 1)" },
+    { "ts": "2026-03-10T10:00:31Z", "level": "info", "service": "billing", "message": "retrying charge for sub_2001 (attempt 2, no idempotency key)" },
+    { "ts": "2026-03-10T10:00:33Z", "level": "info", "service": "billing", "message": "payment pay_6002 succeeded for sub_2001 (999 pence)" },
+    { "ts": "2026-03-10T10:00:35Z", "level": "info", "service": "gateway-reconcile", "message": "late success for attempt 1 of sub_2001 recorded as pay_6001" }
+  ]
+}
